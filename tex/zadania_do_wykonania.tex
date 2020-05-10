@@ -1,0 +1,27 @@
+\begin{frame}
+{Problem wykrywania przeszkód}
+	\begin{itemize}
+		\item problem wykrycia blatu stołu
+		\item czujniki w bazie mobilnej są w stanie zarejestrować nogi stołu, lecz blatu już nie zauważą
+		\item należy wykorzystać kamerę Kinect do wykrycia przeszkód poza zasięgiem czujników LiDAR
+		\item istnieje opcja stworzenia oddzielnej mapy kosztów z danych czujników laserowych i oddzielnej z danych kamery Kinect lub połączenia danych w jedną mapę
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+{Problem algorytmu planowania lokalnego}
+	\begin{itemize}
+		\item obecnie algorytm planowania lokalnego traktuje bazę jako różnicową, a nie wielokierunkową (holonomiczną)
+		\item zostaną przeprowadzone próby dostosowania obecnego planera do możliwości bazy jezdnej
+		\item zostaną wyszukane i zaimplementowane inne algorytmy w celu sprawdzenia który jest lepszy
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+{Przeprowadzanie testów}
+	\begin{itemize}
+		\item testy z dostępnymi algorytmami lokalizacji, budowy mapy oraz ścieżki
+		\item przy lokalizacji sprawdzany będzie błąd względem idealnej pozycji udostępnianiej przez symulator Gazebo
+		\item przy planowaniu ścieżki sprawdzany będzie czas wykonania ściezki, reakcja na przeszkody dynamiczne, jakość systemu odratowania i wykorzystanie wszystkich stopni swobody bazy mobilnej
+	\end{itemize}
+\end{frame}

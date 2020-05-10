@@ -1,0 +1,30 @@
+\begin{frame}
+{Zastosowania wyszukiwania ścieżki}
+\begin{itemize}
+	\item problem popularny również w innych dziedzinach, przykładowo w grach komputerowych
+%TODO A Comprehensive Study on Pathfinding Techniques for Robotics and Video Games
+	\item może wykorzystywać standardowe algorytmy jak A*, Djikstra
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+{Analiza problemu wyszukiwania ścieżki}
+	Pierwszym punktem jest wybór reprezentacji mapy.
+	Szkieletyzacja generuje reprezentację topologiczną środowiska, natomiast dekompozycja komórkowa dzieli przestrzeń wolną od przeszkód na wolne komórki	
+%TODO obrazek reprezentacji grafowej i dekompozycji
+\end{frame}
+
+\begin{frame}
+{Algorytm generowania ścieżki}
+	Po wybraniu odpowiedniej reprezentacji należy zdecydować który algorytm wyszukiwania drogi zostanie wykorzystany.
+	Do algorytmów wspomnianych wcześniej można dodać sztuczne pola potencjału, algorytm genetyczny i wiele innych.
+\end{frame}
+
+\begin{frame}
+{Istotne szczegóły w kontekście robotyki}
+	\begin{itemize}
+		\item ścieżka zwykle ma prowadzić od miejsca w którym znajduje się początkowy układ współrzędnych bazy mobilnej do pozycji sprecyzowanej przez użytkownika
+		\item może się okazać, że wyznaczona ścieżka jest zbyt blisko przeszkody i robot w nią uderzy
+		\item w celu uniknięcia takich wypadków stosowana jest mapa kosztów i ślad robota (\textit{ang.} footprint)
+	\end{itemize}
+\end{frame}

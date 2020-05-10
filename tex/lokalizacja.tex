@@ -1,0 +1,68 @@
+
+\begin{frame}
+{Operator przekształcenia jednorodnego}
+Macierz przedstawiająca operację przejścia z układu współrzędnych $0$ do $1$.
+Dzięki temu można przekształcić pozycję obiektu znajdującego się w układzie $1$ i przedstawić jako pozycję względem układu $0$.
+
+%TODO wstawić r-nie anro-kin no 34
+\end{frame}
+
+\begin{frame}
+{Drzewo transformacji}
+	\begin{itemize}
+		\item 4 parametry Denavita-Hartenberga opisujące przejście między dwoma układami współrzędnych (obrót i przesunięcie względem odpowiednich osi $x$ oraz $z$)
+		\item macierze wygenerowane z tych parametrów można mnożyć sekwencyjnie, dzięki czemu relatywnie proste jest przedstawianie układów szeregowych z dużą ilością stawów - drzewo powstaje przez przejście z podstawowego układu (przykładowo świata) przez kolejne układy do docelowego
+		\item drzewo transformacji może mieć tylko jeden korzeń, każdy węzeł (układ współrzędnych) tylko jednego rodzica, za to wiele dzieci
+	\end{itemize}
+	
+%TODO wstaw wzór anro-kin no 87
+\end{frame}
+
+\begin{frame}
+{Drzewo transformacji Robota w lokalizacji}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+				W kontekście lokalizacji interesująca jest jedynie początkowa część drzewa transformacji opisująca połączenie układu świata z pierwszym układem związanym z robotem.
+	Najczęściej między tymi dwoma jest wykonywane przejście przez układ początkowy mapy oraz układ rozpoczęcia odometrii, jeśli jest wykorzystywana.
+		\end{column}
+		\begin{column}{0.5\textwidth}  %%<--- here
+			%TODO obrazek drzewa transformacji Velmy
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+{Odometria}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{itemize}
+				\item metoda lokalizacji zliczeniowej
+				\item oszacowanie pozycji robota na podstawie oszacowanej prędkości, kierunku i czasu ruchu
+				\item względnie proste zadanie obliczeniowo, ale generuje bez przerwy akumulowane błędy
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}  %%<--- here
+			%TODO obrazek Robotics Vision and Control 6.4/159
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+{lokalizacja ze znacznikami}
+	\begin{itemize}
+		\item wykorzystuje punkty o znanym położeniu względem początkowego układu współrzędnych mapy, które robot jest w stanie rozróżnić i zidentyfikować
+		\item mierząc pozycję robota kolejno względem punktów można obliczyć jego pozycję względem początkowego układu mapy
+		\item ta metoda również zwraca pozycję z pewnym błędem z powodu niepewności zapamiętajej pozycji znaczników jak i niepewności pomiarowych pozycji względem robota, lecz ten błąd jest ograniczony, im lepiej umieszczone znaczniki tym mniejszy
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+{Lokalizacja z systemem LiDAR}
+	\begin{itemize}
+		\item problem podobny do poprzedniego, lecz bez rozpoznawania znaczników
+		\item wykorzystanie algorytmu ICP (iterative closed point) do dopasowania aktualnego skanu robota do stworzonej uprzednio mapy
+		\item niezależność od specjalnych znaczników, lecz większy nakład obliczeniowy
+		\item w przypadku gdy zbudowana mapa składa się z podobnych fragmentów może się okazać, że algorytm zawiedzie (przykładowo jazda długim korytarzem bez elementów szczególnych)
+	\end{itemize}
+\end{frame}
+

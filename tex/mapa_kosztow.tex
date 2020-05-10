@@ -1,0 +1,42 @@
+
+\begin{frame}{Czym jest mapa kosztów}
+	\begin{itemize}
+		\item mapa - informacje które punkty w przestrzeni są zajęte, ewentualnie informacje o ich identyfikacji
+		\item mapa kosztów - każdy punkt w przestrzeni ma przypisaną pewną wartość (binarnie lub z większym przedziałem), wykorzystywana w algorytmach wyszukiwania ścieżki
+		\item przez dodawanie wartości pośrednich można sprawić by algorytm unikał nieporządanych miejsc jak pobliże ścian czy śliska nawierzchnia
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Mapa i mapa kosztów}
+\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				MAPA
+			\end{center}
+%TODO			wstaw obrazek mapy
+		\end{column}
+		\begin{column}{0.5\textwidth}  %%<--- here
+			\begin{center}
+				MAPA KOSZTÓW
+			\end{center}
+%TODO			wstaw obrazek mapy kosztów
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+{Wielowarstwowe mapy kosztów}
+\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{itemize}
+				\item pozwalają na zobrazowanie kosztu poruszania w większej ilości kontekstów (ruch prawostronny, omijanie przestrzeni publicznej)
+				\item możliwość wykrywania przeszkód na kilku poziomach (przykładowo wykrycie blatu stołu)
+				\item możliwość wykorzystania chmury punktów z Kinecta do stworzenia mapy kosztów przez zrzutowanie wszystkich punktów na płaszczyznę
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}  %%<--- here
+%TODO			wstaw obrazek mapy wielowarstwowej
+		\end{column}
+	\end{columns}
+\end{frame}
+
