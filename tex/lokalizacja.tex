@@ -2,10 +2,26 @@
 \begin{frame}
 {Operator przekształcenia jednorodnego}
 Macierz przedstawiająca operację przejścia z układu współrzędnych $0$ do $1$.
-Dzięki temu można przekształcić pozycję obiektu znajdującego się w układzie $1$ i przedstawić jako pozycję względem układu $0$.
-
-%TODO wstawić r-nie anro-kin no 34
+Dzięki temu można przekształcić pozycję obiektu znajdującego się w układzie $0$ i przedstawić jako pozycję względem układu $1$.
+\begin{equation*}
+	\prescript{0}{1}T = 
+	\begin{bmatrix}
+		r_{}11 	& r_{}12	&	r_{}13	& \prescript{0}{1}P_x \\
+		r_{}21 	& r_{}22	&	r_{}23	& \prescript{0}{1}P_y \\
+		r_{}31 	& r_{}32	& r_{}33	& \prescript{0}{1}P_z \\
+		0				&	0				&	0				&	1										\\
+	\end{bmatrix}
+	\Rightarrow
+		\prescript{0}{1}T = 
+	 \left[ \begin{array}{c|c}
+   \prescript{0}{1}R_{3x3} 	& \prescript{0}{1}R_{3x1} \\
+   \midrule
+   0_{1x3}									& 1												\\
+\end{array}\right]
+\end{equation*}
 \end{frame}
+
+
 
 \begin{frame}
 {Drzewo transformacji}
@@ -15,7 +31,16 @@ Dzięki temu można przekształcić pozycję obiektu znajdującego się w układ
 		\item drzewo transformacji może mieć tylko jeden korzeń, każdy węzeł (układ współrzędnych) tylko jednego rodzica, za to wiele dzieci
 	\end{itemize}
 	
-%TODO wstaw wzór anro-kin no 87
+	
+	\begin{equation*}
+		\prescript{i-1}{i}T = 
+		\begin{bmatrix}
+			c\theta_i	&	-s\theta_i	& 0 &	a_{i-1}	\\
+			s\theta_ic\alpha_{i-1}	&	c\theta_ic\alpha_{i-1}	&	-s\alpha_{i-1}	&	-d_is\alpha_{i-1}	\\
+			s\theta_is\alpha_{i-1}	&	c\theta_is\alpha_{i-1}	&	c\alpha_{i-1}		&	d_ic\alpha_{i-1}\\
+			0	&	0	&	0	&	1	\\
+		\end{bmatrix}
+	\end{equation*}
 \end{frame}
 
 \begin{frame}
@@ -26,7 +51,12 @@ Dzięki temu można przekształcić pozycję obiektu znajdującego się w układ
 	Najczęściej między tymi dwoma jest wykonywane przejście przez układ początkowy mapy oraz układ rozpoczęcia odometrii, jeśli jest wykorzystywana.
 		\end{column}
 		\begin{column}{0.5\textwidth}  %%<--- here
-			%TODO obrazek drzewa transformacji Velmy
+			\begin{figure}
+				\begin{center}
+					\includegraphics[height=0.6\textheight]{img/velma_tf.png} 
+					\caption{początkek drzewa transformacji po uruchomieniu symulacji robota}
+				\end{center}
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -34,15 +64,21 @@ Dzięki temu można przekształcić pozycję obiektu znajdującego się w układ
 \begin{frame}
 {Odometria}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.45\textwidth}
 			\begin{itemize}
 				\item metoda lokalizacji zliczeniowej
 				\item oszacowanie pozycji robota na podstawie oszacowanej prędkości, kierunku i czasu ruchu
 				\item względnie proste zadanie obliczeniowo, ale generuje bez przerwy akumulowane błędy
 			\end{itemize}
 		\end{column}
-		\begin{column}{0.5\textwidth}  %%<--- here
-			%TODO obrazek Robotics Vision and Control 6.4/159
+		\begin{column}{0.55\textwidth}  %%<--- here
+			\begin{figure}
+				\begin{center}
+					\includegraphics[page={180},clip, trim=8cm 1.5cm 3cm 18cm, scale=0.6]{pdf/2017_Book_RoboticsVisionAndControl.pdf}
+					\hspace*{15pt}\hbox{\scriptsize{Źródło:\thinspace{\footnotesize{\itshape{Robotics Vision and Control \cite{robotics_vision}}}}}}
+					\caption{Błędy odometrii. Niebieska droga oznacza prawdziwą ścieżkę, czerwona ścieżka oszacowaną }
+				\end{center}
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}

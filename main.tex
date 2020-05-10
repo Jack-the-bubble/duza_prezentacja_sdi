@@ -6,6 +6,11 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{pdfpages}
 \author{Marcin Skrzypkowski}
 \title{Autonomiczna nawigacja manipulatora mobilnego}
 
@@ -231,7 +236,12 @@
 \addtobeamertemplate{frametitle}{\vspace*{-2\baselineskip}}{}
 \begin{frame}
 \frametitle{Wstęp}
-%	zdjęcie Velmy z labu i w symulacji
+	\begin{figure}[!tbp]
+		\centering
+  	\subfloat{\includegraphics[width=0.4\textwidth]{img/velma_gazebo.png}}
+  	\hfill
+  	\subfloat{\includegraphics[width=0.4\textwidth]{img/velma_rviz.png}}
+	\end{figure}
 \end{frame}
 }
 
@@ -240,11 +250,11 @@
 \addtobeamertemplate{frametitle}{\vspace*{-2\baselineskip}}{}
 \begin{frame}
 \frametitle{Spis treści}
-\tableofcontents
+	\begin{multicols}{2}
+		\tableofcontents
+	\end{multicols}
 \end{frame}
 }
-%\stopnavigation
-
 
 {
 \setbeamertemplate{headline}{}
@@ -256,7 +266,6 @@
 	\end{center}
 \end{frame}
 }
-
 
 \section{Robot Velma}
 \input{tex/robot_velma.tex}

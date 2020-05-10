@@ -1,7 +1,7 @@
 \begin{frame}
 {Zastosowania wyszukiwania ścieżki}
 \begin{itemize}
-	\item problem popularny również w innych dziedzinach, przykładowo w grach komputerowych
+	\item problem popularny również w innych dziedzinach, przykładowo w grach komputerowych \cite{robotics_and_games}
 %TODO A Comprehensive Study on Pathfinding Techniques for Robotics and Video Games
 	\item może wykorzystywać standardowe algorytmy jak A*, Djikstra
 \end{itemize}
@@ -11,7 +11,26 @@
 {Analiza problemu wyszukiwania ścieżki}
 	Pierwszym punktem jest wybór reprezentacji mapy.
 	Szkieletyzacja generuje reprezentację topologiczną środowiska, natomiast dekompozycja komórkowa dzieli przestrzeń wolną od przeszkód na wolne komórki	
-%TODO obrazek reprezentacji grafowej i dekompozycji
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\begin{center}
+					\includegraphics[page={3},clip, trim=4cm 15cm 4cm 2cm, scale=0.25]{pdf/A-Comprehensive-Study.pdf}
+					\hspace*{5pt}\hbox{\scriptsize{Źródło:\thinspace{\footnotesize{\itshape{Zeyad Abd Algfoor, ... \cite{robotics_and_games}}}}}}
+					\caption{Przykłady dekompozycji komórkowej }
+				\end{center}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}  %%<--- here
+						\begin{figure}
+				\begin{center}
+					\includegraphics[page={5},clip, trim=4cm 15cm 4cm 2cm, scale=0.25]{pdf/A-Comprehensive-Study.pdf}
+					\hspace*{5pt}\hbox{\scriptsize{Źródło:\thinspace{\footnotesize{\itshape{Zeyad Abd Algfoor, ... \cite{robotics_and_games}}}}}}
+					\caption{Przykłady topologii}
+				\end{center}
+			\end{figure}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}

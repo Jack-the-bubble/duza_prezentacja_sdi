@@ -4,9 +4,7 @@
 	Możliwa jest nawigacja bez wykorzystania mapy, w tym wypadku wykorzystuje się tak zwaną nawigację zliczeniową. 
 	Jej wykorzystanie powoduje akumulację błędu pozycji, którego nie da się zniwelować,
 	a który rośnie z czasem.
-	Dlatego potrzebne są punkty orientacyjne, które pozwalają utrzymać błąd lokalizacji w pewnych granicach.
-	
-%TODO	Robotics Vision and Control
+	Dlatego potrzebne są punkty orientacyjne, które pozwalają utrzymać błąd lokalizacji w pewnych granicach \cite{robotics_vision_dead_reckon}.
 \end{frame}
 
 \begin{frame}{Jak działa budowa mapy}
@@ -19,7 +17,22 @@
 \end{frame}
 
 \begin{frame}{Jak działa budowa mapy}
-%TODO	zdjęcie budowy lidarem i kinectem
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics[height=0.6\textheight]{img/mapa_2d.png}
+				\caption{dwuwymiarowa mapa zbudowana przy pomocy czujników LiDAR}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}  %%<--- here
+			\begin{figure}
+				\centering
+				\includegraphics[height=0.6\textheight]{img/octomapa.png}
+				\caption{mapa trójwymiarowa zbudowana przy pomocy kamery Kinect}
+			\end{figure}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Własności niektórych metod}
