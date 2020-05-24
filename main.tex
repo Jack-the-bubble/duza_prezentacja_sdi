@@ -36,21 +36,6 @@
     \insertframenumber/\inserttotalframenumber
 }
 
-%remove navigation bar from slide
-%\AtBeginSection[] % Do nothing for \section*
-%{
-%\begingroup
-%\setbeamertemplate{headline}{}
-%%\addtobeamertemplate{frametitle}{\vspace*{-1\baselineskip}}{}
-%\addtobeamertemplate{frametitle}{\vspace*{-1cm}}{}
-%\begin{frame}<beamer>
-%\frametitle{Title}
-%%\tableofcontents[currentsection]
-%\end{frame}
-%\endgroup
-%}
-
-
 %define new subsection for display in frames
 \setbeamercovered{transparent}
 
@@ -58,74 +43,6 @@
 \let\oldheadcommand\headcommand
 \newcommand{\stopnavigation}{\addtocontents{nav}{\string\let\string\headcommand\string\@gobble}}
 \newcommand{\resumenavigation}{\addtocontents{nav}{\string\let\string\headcommand\string\oldheadcommand}}
-
-
-%\newcount\c@p
-%\newcount\c@m
-%\def\insertsectionnavigation#1{%
-%  \hbox to #1{%
-%    \vbox{{\usebeamerfont{section in head/foot}\usebeamercolor[fg]{section in head/foot}%
-%     \vskip0.5625ex%
-%    \def\slideentry##1##2##3##4##5##6{}%
-%     \def\sectionentry##1##2##3##4##5{%
-%       \ifnum##5=\c@part%
-%       \def\insertsectionhead{##2}%
-%       \def\insertsectionheadnumber{##1}%
-%       \def\insertpartheadnumber{##5}%
-%       \c@p=\c@section%
-%       \c@m=\c@section%
-%       \advance\c@m by -1 %
-%       \advance\c@p by 1 %
-%             \ifnum\c@section=##1%
-%               \setbox\beamer@tempbox=\hbox{%
-%              \hyperlink{Navigation##3}{\hbox to #1{%
-%             {\hskip0.3cm\usebeamertemplate{section in head/foot}\hskip0.3cm}}}}%
-%             \else%
-%                 \ifnum##1=\c@m%
-%                 \setbox\beamer@tempbox=\hbox{%
-%                  \hyperlink{Navigation##3}{\hbox to #1{%
-%                 {\hskip0.3cm\usebeamertemplate{section in head/foot shaded}\hskip0.3cm}}}}
-%                 %
-%                \else%
-%                 \ifnum##1=\c@p%
-%                 \setbox\beamer@tempbox=\hbox{%
-%                  \hyperlink{Navigation##3}{\hbox to #1{%
-%               {\hskip0.3cm\usebeamertemplate{section in head/foot shaded}\hskip0.3cm}}}}%
-%               %
-%               \else%
-%               %
-%               \fi%
-%               \fi%
-%               %
-%            \fi%%
-%            %
-%
-%      \ht\beamer@tempbox=1.6875ex%
-%       \dp\beamer@tempbox=0.75ex%
-%       \box\beamer@tempbox\fi}%
-%     \dohead\vskip0.5625ex}}\hfil}}
-%
-%
-%\setbeamertemplate{headline}%{split theme} % full manual adjustment
-%{%
-%  \leavevmode%
-%  \@tempdimb=3em%
-%  \ifdim\@tempdimb>0pt%
-%    \advance\@tempdimb by 1.825ex%
-%    \begin{beamercolorbox}[wd=.5\paperwidth,ht=\@tempdimb]{section in head/foot}%
-%      \vbox to\@tempdimb{\vfil\insertsectionnavigation{.5\paperwidth}\vfil}%
-%    \end{beamercolorbox}%
-%    \begin{beamercolorbox}[wd=.5\paperwidth,ht=\@tempdimb]{subsection in head/foot}%
-%      \vbox to\@tempdimb{\vfil\insertsubsectionnavigation{.5\paperwidth}\vfil}%
-%    \end{beamercolorbox}%
-%  \fi%
-%}
-%
-%
-%
-%\makeatother
-
-
 
 
 \newcounter{prevsection}
@@ -206,17 +123,19 @@
 \makeatother
 
 % Here you put the names that will go in the navigation bar
-\newcommand\sectioni{Robot Velma}
-\newcommand\sectionii{Mapa}
-\newcommand\sectioniii{Mapa kosztów}
-\newcommand\sectioniv{Lokalizacja}
-\newcommand\sectionv{Slam}
-\newcommand\sectionvi{Planowanie ścieżki}
-\newcommand\sectionvii{Navigation Stack}
-\newcommand\sectionviii{Sformułowanie zadań}
-\newcommand\sectionix{Dotychczasowe wyniki}
-\newcommand\sectionx{Zadania do wykonania}
-\newcommand\sectionxi{Zakończenie}
+\newcommand\sectioni{Cel pracy}
+\newcommand\sectionii{Robot Velma}
+\newcommand\sectioniii{Mapa}
+\newcommand\sectioniv{Mapa kosztów}
+\newcommand\sectionv{Lokalizacja}
+\newcommand\sectionvi{Slam}
+\newcommand\sectionvii{Planowanie ścieżki}
+\newcommand\sectionviii{Navigation Stack}
+\newcommand\sectionix{Sformułowanie zadań}
+\newcommand\sectionx{Dotychczasowe wyniki}
+\newcommand\sectionxi{Zadania do wykonania}
+\newcommand\sectionxii{Zakończenie}
+\newcommand\sectionxiii{Źródła}
 
 
 \begin{document}
@@ -225,7 +144,8 @@
 \begin{frame}
 \titlepage
 	\begin{center}
-		promotor: dr hab. inż. Wojciech Szynkiewicz
+		promotor: dr hab. inż. Wojciech Szynkiewicz \\
+		\small{Instytut Automatyki i Informatyki Stosowanej}
 	\end{center}
 \end{frame}
 }
@@ -249,12 +169,27 @@
 \setbeamertemplate{headline}{}
 \addtobeamertemplate{frametitle}{\vspace*{-2\baselineskip}}{}
 \begin{frame}
-\frametitle{Spis treści}
+\frametitle{Plan prezentacji}
 	\begin{multicols}{2}
 		\tableofcontents
 	\end{multicols}
 \end{frame}
 }
+
+\section{Cel pracy i motywacja}
+\begin{frame}
+\frametitle{Cel pracy}
+	Celem prezentowanej tu pracy inżynierskiej jest opracowanie i implementacja systemu autonomicznej nawigacji dwuręcznego manipulatora mobilnego Velma.
+	Do zadań systemu należy budowa mapy otoczenia, lokalizacja w stworzonej mapie środowiska, jednoczesna budowa mapy i lokalizacja, oraz planowanie i bezpieczne wykonanie ścieżki do zadanego punktu w otoczeniu.
+	
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Motywacja pracy}
+Motywacją opisywanej pracy jest rozwój platformy naukowej jaką jest robot Velma, połączenie możliwości skomplikowanego manipulatora z wszechstronną bazą mobilną.
+\end{frame}
 
 {
 \setbeamertemplate{headline}{}
@@ -316,6 +251,14 @@
 \end{frame}
 
 %TODO dodaj bibliografię
+
+
+\begin{frame}
+\setbeamertemplate{headline}{}
+\addtobeamertemplate{frametitle}{\vspace*{-2\baselineskip}}{}
+\frametitle{Źródła}
+\printbibliography
+\end{frame}
 
 %\resumenavigation
 \end{document}

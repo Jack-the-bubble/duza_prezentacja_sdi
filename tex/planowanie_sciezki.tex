@@ -1,14 +1,14 @@
 \begin{frame}
-{Zastosowania wyszukiwania ścieżki}
+{Problem planowania ścieżki}
 \begin{itemize}
 	\item problem popularny również w innych dziedzinach, przykładowo w grach komputerowych \cite{robotics_and_games}
-%TODO A Comprehensive Study on Pathfinding Techniques for Robotics and Video Games
-	\item może wykorzystywać standardowe algorytmy jak A*, Djikstra
+	\item może wykorzystywać standardowe algorytmy przeszukiwania grafu jak A*, Djikstra, zwykle implementowane w zadaniu planowania globalnego
+	\item w systemie ROS gotowe do wykorzystania są biblioteki implementujące między innymi algorytmy DWA (Dynamic Window Approach), EBand (elastic band) oraz TEB (Timed Elastic Band), które można wykorzystać do obliczenia pożądanych prędkości bazy mobilnej
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-{Analiza problemu wyszukiwania ścieżki}
+{Analiza problemu planowania ścieżki}
 	Pierwszym punktem jest wybór reprezentacji mapy.
 	Szkieletyzacja generuje reprezentację topologiczną środowiska, natomiast dekompozycja komórkowa dzieli przestrzeń wolną od przeszkód na wolne komórki	
 	\begin{columns}
@@ -35,14 +35,14 @@
 
 \begin{frame}
 {Algorytm generowania ścieżki}
-	Po wybraniu odpowiedniej reprezentacji należy zdecydować który algorytm wyszukiwania drogi zostanie wykorzystany.
+	Po wybraniu odpowiedniej reprezentacji mapy należy zdecydować, który algorytm wyszukiwania drogi zostanie wykorzystany.
 	Do algorytmów wspomnianych wcześniej można dodać sztuczne pola potencjału, algorytm genetyczny i wiele innych.
 \end{frame}
 
 \begin{frame}
 {Istotne szczegóły w kontekście robotyki}
 	\begin{itemize}
-		\item ścieżka zwykle ma prowadzić od miejsca w którym znajduje się początkowy układ współrzędnych bazy mobilnej do pozycji sprecyzowanej przez użytkownika
+		\item ścieżka zwykle ma prowadzić od miejsca, w którym znajduje się początkowy układ współrzędnych bazy mobilnej do pozycji sprecyzowanej przez użytkownika
 		\item może się okazać, że wyznaczona ścieżka jest zbyt blisko przeszkody i robot w nią uderzy
 		\item w celu uniknięcia takich wypadków stosowana jest mapa kosztów i ślad robota (\textit{ang.} footprint)
 	\end{itemize}

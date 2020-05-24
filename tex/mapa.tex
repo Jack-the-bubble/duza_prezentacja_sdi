@@ -1,22 +1,22 @@
 
 
 \begin{frame}{Do czego potrzebna jest mapa}
-	Możliwa jest nawigacja bez wykorzystania mapy, w tym wypadku wykorzystuje się tak zwaną nawigację zliczeniową. 
-	Jej wykorzystanie powoduje akumulację błędu pozycji, którego nie da się zniwelować,
-	a który rośnie z czasem.
-	Dlatego potrzebne są punkty orientacyjne, które pozwalają utrzymać błąd lokalizacji w pewnych granicach \cite{robotics_vision_dead_reckon}.
+	Istnieje implementacja zadania nawigacji bez wykorzystania mapy, w tym wypadku jest to tak zwana nawigacja zliczeniowa. 
+	Jej wykorzystanie powoduje jednak generowanie błędu pozycji, którego nie da się zniwelować,	a który rośnie z czasem.
+	W celu minimalizacji tego rodzaju błędów wykorzystuje się cechy charakterystyczne środowiska \cite{robotics_vision_dead_reckon}, a więc mapę.
+	To podejście do nawigacji jest wykorzystywane w opisywanej pracy inżynierskiej.
 \end{frame}
 
-\begin{frame}{Jak działa budowa mapy}
+\begin{frame}{Jak działa algorytm budowy mapy}
 	\begin{itemize}
 		\item początkowe założenie - znana pierwotna pozycja robota
 		\item uzyskanie punktów otoczenia względem robota
-		\item możliwośc wykorzystania wielu czujników - systemu LiDAR, kamery Kinect, sonarów etc.
-		\item możliwość identyfikowania poszczególnych punktów na mapie aby moć je od razu rozpoznać lub przechowywanie jedynie współrzędnych zajętych obszarów
+		\item możliwość wykorzystania wielu czujników - systemu LiDAR, kamery Kinect, sonarów etc.
+		\item możliwa identyfikacja poszczególnych punktów na mapie w celu późniejszego szybkiego ich rozpoznania lub przechowywanie jedynie współrzędnych zajętych obszarów
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Jak działa budowa mapy}
+\begin{frame}{Na co pozwalają implementacje budowy mapy}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\begin{figure}
@@ -29,13 +29,13 @@
 			\begin{figure}
 				\centering
 				\includegraphics[height=0.6\textheight]{img/octomapa.png}
-				\caption{mapa trójwymiarowa zbudowana przy pomocy kamery Kinect}
+				\caption{mapa trójwymiarowa zbudowana za pomocą kamery Kinect}
 			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Własności niektórych metod}
+\begin{frame}{Własności niektórych implementacji}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\begin{center}
@@ -43,7 +43,7 @@
 			\end{center}
 			\begin{itemize}
 				\item szybkie tworzenie obrazów dużych płaskich przestrzeni
-				\item informacje pobrane tylko na jednej wysokości, zwykle blisko podłoża (mapa 2D)
+				\item dane pobrane tylko na jednej wysokości, zwykle blisko podłoża (mapa 2D)
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.5\textwidth}  %%<--- here
@@ -51,7 +51,7 @@
 				kamera Kinect
 			\end{center}
 			\begin{itemize}
-				\item mniejszy kąt widzenia czujnika i większe nakłady obliczeniowe - potrzeba więcej zasobów do budowy takiej mapy				
+				\item mniejszy kąt widzenia czujnika i wymagane większe zasoby - potrzeba więcej czasu, pamięci i cykli procesora do budowy takiej mapy				
 				\item budowa obrazu trójwymiarowej przestrzeni
 			\end{itemize}
 		\end{column}

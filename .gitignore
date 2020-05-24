@@ -1,0 +1,11 @@
+*.snm
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.nav
+*.out
+*.xml
+*.toc
+*blx.bib
