@@ -1,10 +1,12 @@
 \begin{frame}
 {ROS Navigation Stack}
-	Na następnym slajdzie przedstawione jest podejście do ogólnego problemu nawigacji zaimplementowane i wspierane przez system ROS. 
-	Istotnym jest rozdział na część globalną i lokalną.
-	Globalna ścieżka wykorzystuje szybkie algorytmy nie zwracające uwagi na przeszkody dynamiczne.
-	Lokalny plan generowany na podstawie globalnego jest w stanie na nie reagować.
-	Dodatkowo należy zaimplementować system odratowania pozwalający na wyrwanie robota z sytuacji w której planer nie jest w stanie znaleźć drogi do celu.
+	\begin{itemize}
+		\item Na następnej stronie przedstawione jest podejście do ogólnego problemu nawigacji zaimplementowane i wspierane przez system ROS
+		\item Istotny jest podział na część globalną i lokalną
+		\item Globalna ścieżka wykorzystuje szybkie algorytmy, które nie sprawdzają stanu przeszkód dynamicznych
+		\item Lokalny plan jest generowany na podstawie globalnego, wykorzystuje bardziej złożone algorytmy reagujące na przeszkody dynamiczne, które biorą pod uwagę jedynie otoczenie w pobliżu robota
+		\item Dodatkowo należy zaimplementować system odratowania pozwalający na wyrwanie robota z sytuacji, w której algorytm lokalny nie jest w stanie wyznaczyć ścieżki lub wyjść z oscylacji
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -13,7 +15,8 @@
 		\begin{figure}
 			\centering
 			\includegraphics[page={29},clip, trim=0cm 0.5cm 0cm 2cm, scale=0.7]{pdf/Wprowadzenie-do-bloku-robotow-mobilnych.pdf}
-			\hspace*{15pt}\hbox{\scriptsize{Źródło:\thinspace{\footnotesize{\itshape{Wojciech Dudek}}}}}
+			\hspace*{15pt}\hbox{\scriptsize{Źródło:\thinspace{\footnotesize{\itshape{\href{http://wiki.ros.org/move_base}{ros.org/move\_base}			
+			}}}}}
 		\end{figure}
 	\end{center}
 \end{frame}

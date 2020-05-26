@@ -28,7 +28,8 @@ Dodatkowo można z niej odczytać położenie i orientację układu $1$ w układ
 \begin{frame}
 {Drzewo transformacji}
 	\begin{itemize}
-		\item macierze opisujące przejście między kolejnymi układami odniesienia można mnożyć sekwencyjnie, dzięki czemu relatywnie proste jest przedstawianie układów szeregowych z dużą ilością stawów - drzewo powstaje przez przejście z podstawowego układu (przykładowo świata) przez kolejne układy do docelowego
+		\item 
+		macierze opisujące przejście między kolejnymi układami odniesienia można mnożyć sekwencyjnie, dzięki czemu relatywnie proste jest przedstawianie układów szeregowych z dużą ilością stawów - drzewo powstaje przez przejście z podstawowego układu (przykładowo świata) przez kolejne układy do docelowego
 		\item drzewo transformacji może mieć tylko jeden korzeń, każdy węzeł (układ współrzędnych) tylko jednego rodzica, za to wiele dzieci
 	\end{itemize}
 	
@@ -49,7 +50,7 @@ Dodatkowo można z niej odczytać położenie i orientację układu $1$ w układ
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 				W kontekście lokalizacji interesująca jest jedynie początkowa część drzewa transformacji opisująca połączenie układu świata z pierwszym układem związanym z robotem.
-	Najczęściej między tymi dwoma jest wykonywane przejście przez układ początkowy mapy oraz układ rozpoczęcia odometrii, jeśli jest wykorzystywana.
+	Najczęściej między tymi dwoma jest wykonywane przejście przez układ początkowy mapy oraz układ odniesienia lokalizacji, jeśli zaimplementowano ją metodą odometrii.
 		\end{column}
 		\begin{column}{0.5\textwidth}  %%<--- here
 			\begin{figure}
@@ -68,8 +69,8 @@ Dodatkowo można z niej odczytać położenie i orientację układu $1$ w układ
 		\begin{column}{0.45\textwidth}
 			\begin{itemize}
 				\item metoda lokalizacji zliczeniowej
-				\item obliczenie pozycji robota na podstawie oszacowanej prędkości, kierunku i czasu ruchu
-				\item względnie proste zadanie obliczeniowo, ale generuje systematycznie akumulowane błędy
+				\item obliczenie względnej pozycji robota na podstawie oszacowanej prędkości, kierunku i czasu ruchu
+				\item względnie proste zadanie obliczeniowo (w porównaniu do lokalizacji z pomocą czujników LiDAR), ale generuje systematycznie akumulowane błędy
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.55\textwidth}  %%<--- here

@@ -7,17 +7,15 @@
 				\item Robot Velma - dwa manipulatory, każdy o siedmiu stopniach swobody
 				
 				
-				\item Dostępne czujniki przydatne w nawigacji - dwa czujniki LiDAR, kamera Kinect, kamery rgb, czujnik inercji, czujniki odometrii na osiach bazy mobilnej (jedynie w prawdziwym robocie, symulacja oblicza odometrię w inny sposób)
+				\item Dostępne czujniki przydatne w nawigacji - dwa czujniki LiDAR, kamera Kinect, kamery RGB, jednostka inercyjna, czujniki odometrii (enkodery) na osiach kół bazy mobilnej (jedynie w rzeczywistym robocie, w symulacji odometria jest realizowana w inny sposób)
 				
 			\end{itemize}
 		\end{column}
 		\begin{column}{0.5\textwidth}
-%			\begin{center}
-%				\includegraphics[height=0.5\textheight]{img/velma_wizualizacja.png} 
-%			\end{center}
 			\begin{itemize}
+				
+				\item Symulacja robota stworzona na potrzeby prac laboratoryjnych, w początkowych fazach projektów prace na samym robocie są zbyt niebezpieczne
 				\item Baza mobilna - wielokierunkowa, wykorzystująca koła szwedzkie
-				\item Symulacja całego robota na potrzeby prac laboratoryjnych, w początkowych fazach projektów prace na samym robocie są zbyt niebezpieczne
 			\end{itemize}
 		\end{column}		
 	\end{columns}
@@ -29,8 +27,7 @@
 	\begin{itemize}
 		\item należy wykrywać przeszkody znajdujące się wysoko ponad poziomem podłogi
 		\item należy dobrać odpowiedni algorytm planowania i wykonania ścieżki wykorzystujący w pełni możliwości wielokierunkowej bazy mobilnej
-		\item z powodu relatywnie skomplikowanej zasady działania napędu bazy mobilnej utrudnione jest zadanie precyzyjnego sterowania prędkością poruszania robota w środowisku
-%TODO podać rozwiązanie problemów?
+		\item z powodu relatywnie skomplikowanej zasady działania napędu bazy mobilnej uproszczona implementacja systemu napędowego, co zmienia sposób implementacji odometrii
 	\end{itemize}
 \end{frame}
 
@@ -69,6 +66,32 @@
 \footnotesize{Żródła: wikipedia.org, pngkey.com}
 \end{frame}
 
+\begin{frame}{Oprogramowanie części mobilnej}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				ROS
+			\end{center}
+			\begin{itemize}
+				\item popularny i rozwijany system programowania robotów
+				\item umożliwia tworzenie niezależnych procesów w systemie operacyjnym komputera
+				\item komunikacja między procesami za pomocą jednokierunkowych tematów i dwukierunkowych serwisów
+			\end{itemize}
+			
+		\end{column}
+		\begin{column}{0.5\textwidth}  %%<--- here
+			\begin{center}
+				GAZEBO
+			\end{center}
+			\begin{itemize}
+				\item symulowanie obiektów w przestrzeni trójwymiarowej
+				\item proste pisanie własnych wtyczek w C++
+				\item początkowo część ROSa, teraz niezależna platforma
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
 
 \begin{frame}{Symulacja części mobilnej}
 	\begin{columns}
@@ -96,28 +119,3 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Oprogramowanie części mobilnej}
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-				ROS
-			\end{center}
-			\begin{itemize}
-				\item popularny i rozwijany system programowania robotów
-				\item umożliwia tworzenie niezależnych procesów w systemie operacyjnym komputera
-				\item komunikacja między procesami z pomocą jednokierunkowych tematów i dwukierunkowych serwisów
-			\end{itemize}
-			
-		\end{column}
-		\begin{column}{0.5\textwidth}  %%<--- here
-			\begin{center}
-				GAZEBO
-			\end{center}
-			\begin{itemize}
-				\item symulowanie obiektów w przestrzeni trójwymiarowej
-				\item proste pisanie własnych wtyczek w C++
-				\item początkowo część ROSa, teraz niezależna platforma
-			\end{itemize}
-		\end{column}
-	\end{columns}
-\end{frame}

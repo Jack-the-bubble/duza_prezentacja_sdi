@@ -1,7 +1,10 @@
 \begin{frame}
 {Połączenie budowy mapy i lokalizacji}
-	Często w trakcie budowy modelu środowiska okazuje się, że trzeba poruszyć robotem aby uzyskać wszystkie informacje.
-	Poruszenie robotem wymaga algorytmu lokalizacji, aby mapowanie działało poprawnie.
-	Algorytm lokalizacji zwykle wymaga mapy do zwracania pozycji z niewielkim błędem.
-	Aby rozwiązać ten problem powstał algorytm SLAM (Simultaneous Localization and Mapping).
+	\begin{itemize}
+		\item W trakcie budowy modelu środowiska często niezbędne jest poruszenie robotem, aby uzyskać wszystkie dane
+		\item Poruszenie robota wymaga algorytmu lokalizacji
+		\item algorytmy lokalizacji wymagają mapy do minimalizacji błędu uzyskanej pozycji
+		\item W celu rozwiązania tego problemu powstał algorytm SLAM (Simulataneous Localization and Mapping)
+		\item Zadanie jednoczesnej lokalizacji i budowy mapy trzeba rozwiązywać, gdy mapa środowiska jest niedostępna, a pozycja robota nie jest znana
+	\end{itemize}
 \end{frame}

@@ -2,8 +2,8 @@
 \begin{frame}{Czym jest mapa kosztów}
 	\begin{itemize}
 		\item mapa w lokalizacji - zawiera jedynie informacje potrzebne do odnalezienia robota w przestrzeni
-		\item mapa kosztów - każdy punkt w przestrzeni ma przypisaną pewną wartość (binarną lub z większym przedziałem) określającą poziom zajętości danej komórki, wykorzystywaną w algorytmach wyszukiwania ścieżki
-		\item przez zwiększenie granularności wartości komórek można sprawić, by algorytm unikał niepożądanych miejsc, jak pobliże ścian czy śliska nawierzchnia
+		\item mapa kosztów - każdy punkt w przestrzeni ma przypisaną pewną wartość ($0$ do $255$) określającą koszt danej komórki, wykorzystywaną w algorytmach wyszukiwania ścieżki \cite{costmap}
+		\item przez zwiększenie przedziału wartości komórek względem mapy wykorzystywanej do lokalizacji można sprawić, by algorytm unikał niepożądanych miejsc, jak pobliże ścian czy śliska nawierzchnia
 	\end{itemize}
 \end{frame}
 

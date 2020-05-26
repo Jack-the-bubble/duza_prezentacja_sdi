@@ -1,16 +1,19 @@
 
 
 \begin{frame}{Do czego potrzebna jest mapa}
-	Istnieje implementacja zadania nawigacji bez wykorzystania mapy, w tym wypadku jest to tak zwana nawigacja zliczeniowa. 
-	Jej wykorzystanie powoduje jednak generowanie błędu pozycji, którego nie da się zniwelować,	a który rośnie z czasem.
-	W celu minimalizacji tego rodzaju błędów wykorzystuje się cechy charakterystyczne środowiska \cite{robotics_vision_dead_reckon}, a więc mapę.
-	To podejście do nawigacji jest wykorzystywane w opisywanej pracy inżynierskiej.
+	\begin{itemize}
+		\item Istnieje implementacja zadania nawigacji bez wykorzystania mapy, w tym wypadku jest to tak zwana nawigacja zliczeniowa
+		\item Wykorzystanie tej metody powoduje generowanie błędu pozycji, którego nie da się zniwelować, a który rośnie z czasem
+		\item W celu minimalizacji tego rodzaju błędów wykorzystuje się cechy charakterystyczne środowiska \cite{robotics_vision_dead_reckon}, a więc mapę
+		\item To podejście do nawigacji jest wykorzystywane w opisywanej pracy inżynierskiej
+	\end{itemize}
+	
 \end{frame}
 
 \begin{frame}{Jak działa algorytm budowy mapy}
 	\begin{itemize}
-		\item początkowe założenie - znana pierwotna pozycja robota
-		\item uzyskanie punktów otoczenia względem robota
+		\item początkowe założenie - znana początkowa pozycja robota
+		\item uzyskanie położenia punktów otoczenia względem układu współrzędnych robota, które zostaną następnie zapisane w układzie współrzędnych mapy
 		\item możliwość wykorzystania wielu czujników - systemu LiDAR, kamery Kinect, sonarów etc.
 		\item możliwa identyfikacja poszczególnych punktów na mapie w celu późniejszego szybkiego ich rozpoznania lub przechowywanie jedynie współrzędnych zajętych obszarów
 	\end{itemize}
@@ -22,7 +25,7 @@
 			\begin{figure}
 				\centering
 				\includegraphics[height=0.6\textheight]{img/mapa_2d.png}
-				\caption{dwuwymiarowa mapa zbudowana przy pomocy czujników LiDAR}
+				\caption{dwuwymiarowa mapa zbudowana za pomocą czujników LiDAR}
 			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}  %%<--- here
