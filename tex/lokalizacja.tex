@@ -1,10 +1,10 @@
 
 \begin{frame}
 {Macierz przekształcenia jednorodnego}
-Poniżej znajduje się jedna z interpretacji macierzy przekształcenia jednorodnego.
-Przedstawia operację przejścia z układu współrzędnych $0$ do $1$. 
-Dzięki temu można przekształcić pozycję obiektu znajdującego się w układzie $0$ i przedstawić jako pozycję względem układu $1$.
-Dodatkowo można z niej odczytać położenie i orientację układu $1$ w układzie $0$.
+Poniżej znajduje się jedna macierz przekształcenia jednorodnego. 
+Można ją interpretować na wiele sposobów, jednym z nich jest przedstawienie operacji przejścia z układu współrzędnych $0$ do $1$. 
+Dzięki temu można przekształcić pozycję obiektu znajdującego się w układzie $1$ i przedstawić jako pozycję względem układu $0$.
+Kolejnym przykładem jest możliwość odczytania położenia ($\prescript{0}{1}P_{3x1}$) i orientacji ($\prescript{0}{1}R_{3x3}$) układu $1$ w układzie $0$.
 \begin{equation*}
 	\prescript{0}{1}T = 
 	\begin{bmatrix}
@@ -29,7 +29,11 @@ Dodatkowo można z niej odczytać położenie i orientację układu $1$ w układ
 {Drzewo transformacji}
 	\begin{itemize}
 		\item 
-		macierze opisujące przejście między kolejnymi układami odniesienia można mnożyć sekwencyjnie, dzięki czemu relatywnie proste jest przedstawianie układów szeregowych z dużą ilością stawów - drzewo powstaje przez przejście z podstawowego układu (przykładowo świata) przez kolejne układy do docelowego
+		Posiadając macierze $\prescript{0}{1}T$, $\prescript{1}{2}T$, $\prescript{2}{3}T$, $\prescript{3}{4}T$, a więc proste drzewo transformacji, można uzyskać pozycję punktu, który początkowo przedstawiony jest w układzie współrzędnych $4$, w układzie $0$ poprzez kolejne przemnożenia przedstawionych macierzy. 
+		\begin{equation*}
+			\prescript{0}{}P = \prescript{0}{1}T \cdot \prescript{1}{2}T \cdot \prescript{2}{3}T \cdot \prescript{3}{4}T \cdot \prescript{4}{}P
+		\end{equation*}
+%		macierze opisujące przejście między kolejnymi układami odniesienia można mnożyć sekwencyjnie, dzięki czemu relatywnie proste jest przedstawianie układów szeregowych z dużą ilością stawów - drzewo powstaje przez przejście z podstawowego układu (przykładowo świata) przez kolejne układy do docelowego
 		\item drzewo transformacji może mieć tylko jeden korzeń, każdy węzeł (układ współrzędnych) tylko jednego rodzica, za to wiele dzieci
 	\end{itemize}
 	

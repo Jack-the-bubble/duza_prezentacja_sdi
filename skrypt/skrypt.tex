@@ -1,12 +1,13 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[20pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[polish]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 %\usepackage{amssymb}
 \usepackage{graphicx}
+\date{28 maja 2020}
 \author{Marcin Skrzypkowski}
-\title{Autonomiczna nawigacja manipilatora mobilnego skrypt}
+\title{Autonomiczna nawigacja manipulatora mobilnego \\ komentarz do prezentacji}
 
 \usepackage[
     backend=bibtex,
@@ -21,133 +22,144 @@
 \pagebreak
 
 	\begin{itemize}
-		\item [1] Dzień dobry, nazywam się Marcin Skrzypkowski, jestem studentem Automatyki i Robotyki na Wydziale Elektroniki i Technik Informacyjnych, 
-moim promotorem jest dr hab. inż. Wojciech Szynkiewicz z Instytutu Automatyki i Informatyki Stosowanej. Przez następne kilkadziesiąt minut przedstawię Państwu bliżej tematykę mojej pracy, która opisuje autonomiczną nawigację robota mobilnego. 
-		 \item [2]  Celem pracy jest dalszy rozwój już dosyć zaawansowanej platformy badawczej jaką jest robot manipulacyjny Velma na mobilnej bazie wielokierunkowej.     Moim zadaniem jest rozszerzenie jego funkcjonalności o tworzenie mapy zamkniętych przestrzeni, ustalenie pozycji robota w zbudowanej lub generowanej na bieżąco mapie oraz generowanie i pokonanie ścieżki między dwoma punktami.
-    Każdy z tych trzech problemów posiada wiele możliwych rozwiązań, gdzie każde ma swoje wady i zalety, co krótko wytłumaczę. Przybliżę też kilka mniejszych problemów związanych ściśle z systemem nawigacji. Przejdźmy do dokładniejszego planu mojej prezentacji.
+		\item [2] Dzień dobry, nazywam się Marcin Skrzypkowski, jestem studentem Automatyki i Robotyki na Wydziale Elektroniki i Technik Informacyjnych, 
+moim promotorem jest dr hab. inż. Wojciech Szynkiewicz z Instytutu Automatyki i Informatyki Stosowanej. Przez następne kilkadziesiąt minut przedstawię Państwu bliżej tematykę mojej pracy, która opisuje autonomiczną nawigację robota mobilnego. Przejdźmy do dokładniejszego planu mojej prezentacji.
+
     \item[3]
-    Na początek przedstawię robota Velma, jego budowę od strony mechanicznej jak i oprogramowania,
-      żeby przybliżyć narzędzia potrzebne do osiągnięcia postawionych przed chwilą celów.
+    Na początek przedstawię cel pracy i jej motywację, następnie robota Velma, jego budowę od strony mechanicznej jak i oprogramowania,
+      żeby przybliżyć narzędzia potrzebne do osiągnięcia postawionych uprzednio celów.
       Po tym wprowadzeniu przejdę do omawiania map, możliwych ich implementacji i reprezentacji,
       to samo zrobię z lokalizacją.
-      Następnie omówię kilka zagadnień nawigacji, które pozwolą zrozumieć działalność poszczególnych jej elementów
-      tak jak drzewo transformacji czy SLAM.
-      Następnie opowiem krótko o planowaniu ścieżki i na koniec przedstawię kwestię systemu Navigation Stack.
+      Następnie omówię kilka zagadnień nawigacji, które pozwolą zrozumieć działalność poszczególnych jej elementów, tak jak drzewo transformacji czy SLAM.
+      Następnie opowiem krótko o planowaniu ścieżki i na koniec przedstawię system Navigation Stack.
       Potem opiszę zadania do wykonania w mojej pracy, co udało mi się osiągnąć i co zostało do skończenia.
-    \item[5] 
-    Są to połączone w celu zobrazowania człowieka dwa manipulatory LWR Kuki o siedmiu stopniach swobody każdy, wyposażone w dodatkowe czujniki. 
+	 \item [4]  Celem pracy jest dalszy rozwój już dosyć zaawansowanej platformy badawczej, jaką jest robot manipulacyjny Velma na mobilnej bazie wielokierunkowej.
+	      Moim zadaniem jest rozszerzenie jego funkcjonalności o tworzenie mapy zamkniętych przestrzeni, ustalenie pozycji robota w zbudowanej lub generowanej na bieżąco mapie oraz generowanie i pokonanie ścieżki między dwoma punktami.
+    Każdy z tych trzech problemów posiada wiele możliwych rozwiązań, gdzie każde ma swoje wady i zalety, co krótko wytłumaczę. Przybliżę też kilka mniejszych problemów związanych ściśle z systemem nawigacji.   
+    \item[5] Motywacją przedstawianej tu pracy jest zwiększenie wszechstronności robota Velma, co zdecydowanie zwiększy potencjał badawczy całej platformy. 
+    Połączenie możliwości tak skomplikowanego manipulatora z wielokierunkową bazą mobilną pozwoli na tworzenie złożonych zadań na dużej przestrzeni, zamiast, jak do tej pory, w obszarze ograniczonym zasięgiem ramion manipulatorów.
+    \item[7] 
+    Robot Velma to połączone w celu zobrazowania człowieka dwa manipulatory LWR Kuki o siedmiu stopniach swobody każdy, wyposażone w dodatkowe czujniki. 
     W celach prac laboratoryjnych został stworzony symulator, gdyż testowanie nowych rozwiązań od razu na robocie jest zbyt niebezpieczne zarówno dla prowadzących badania jak i samego sprzętu.
     Niedawno wersja symulacyjna została połączona z symulatorem drugiego robota, tym razem mobilnego, który dzięki wyposażeniu w koła szwedzkie może poruszać się w dowolnym kierunku bez zmiany orientacji.
-    \item[6]
+    \item[8] Implementacja nawigacji opisanego robota wiąże się z konkretnymi wyzwaniami.
+    	Wysokość konstrukcji powoduje, że czujniki bazy mobilnej znajdujące się blisko poziomu podłogi nie są wystarczające do bezpiecznego wykonywania zadania nawigacji.
+    	Należy więc znaleźć sposób na wykrywanie przeszkód znajdujących się na wysokości korpusu i głowy.
+    	Następnym problemem jest dobranie odpowiedniego algorytmu sterowania bazą mobilną, znacznie prostszym w budowie i przez to popularniejszym jest napęd różnicowy, natomiast robot Velma posiada bazę wielokierunkową.
+    	Należy dobrać algorytm wykonania ścieżki wykorzystujący możliwości bazy jezdnej.
+    	Dodatkowo z powodu charakterystyki budowy systemu napędowego bazy mobilnej implementacja symulatora musiała zostać uproszczona, co zmusza do obliczania odometrii w niebezpośredni sposób zamiast odczytywania wyników z czujników.
+    	
+    \item[9]
+ 		Zadanie wykonuję za pomocą przedstawionych poniżej symulatora Gazebo i systemu ROS, pisząc kod w językach Python i C++.	
+ 		\item[10]
+    Opisana część mobilna robota została zaimplementowana z wykorzystaniem systemu ROS (Robot Operating System) oraz symulatora Gazebo. 
+    ROS jest to programowa struktura ramowa umożliwiająca tworzenie niezależnych procesów komunikujących się między innymi dzięki jednokierunkowym tzw. tematom oraz serwisom, które zapewniają odpowiedź zwrotną.
+     Dzięki temu można łatwo implementować i dołączać nowe funkcjonalności, czy wymieniać moduły, które mają tę samą funkcjonalność, ale inną wewnętrzną implementację.
+    ROS wspiera pisanie w języku Python (niestety obecnie tylko 2, ROS Noetic ponoć ma zapewnić wsparcie dla Pythona 3) czy C++. 
+    Gazebo jest rozbudowanym symulatorem oferującym symulację obiektów w trójwymiarze, dodatkowo umożliwia proste dołączanie wtyczek jako biblioteki dynamiczne C++.
+    W ten właśnie sposób został zaimplementowany sterownik bazy mobilnej.
+    \item[11]
     Oprogramowanie części mobilnej robota składa się z dwóch modułów. 
     Pierwszym modułem jest model symulacyjny, 
     w którym zawarte zostały część wizualna, inercja oraz kolizje robota.
         Częstą praktyką jest oddzielenie wizualnej od kolizji, gdyż skomplikowane kształty 
-    jak przykładowo koła szwedzkie doczepione do bazy zwiększyłyby w dużym stopniu nakład obliczeń podczas sprawdzania czy obiekt zderzył się z innym, nie wnosząc zbyt wiele dodatkowych informacji.
-    Z tego powodu wspomniane koła szwedzkie mają symulowany system kolizji jako sfera.
+    jak przykładowo koła szwedzkie doczepione do bazy zwiększyłyby w dużym stopniu nakład obliczeń podczas sprawdzania, czy obiekt zderzył się z innym, nie wnosząc zbyt wiele dodatkowych informacji.
+    Z tego powodu wspomniane koła szwedzkie mają symulowany model kolizji jako sfera.
         Drugim modułem jest moduł sterownika, który odpowiada za wykorzystanie informacji z pierwszego modułu oraz podanych na wejście pożądanych przez nas prędkości i obliczenie odpowiednich sił działających w symulacji na bazę, by zachowywała się w przybliżeniu zgodnie z rzeczywistością.
-    \item[7]
-    Opisana część mobilna robota została zaimplementowana z wykorzystaniem systemu ROS (Robot Operating System) oraz symulatora Gazebo. 
-    ROS jest to system umożliwiający tworzenie niezależnych procesów komunikujących się między innymi dzięki jednokierunkowym tzw. tematom oraz serwisom, które zapewniają odpowiedź zwrotną.
-     Dzięki temu można łatwo implementować i dołączać nowe funkcjonalności, czy wymieniać moduły które mają tę samą funkcjonalność ale inną wewnętrzną implementację.
-    ROS wspiera pisanie w wielu językach, w tym Pythonie (niestety obecnie tylko 2, ROS Noetic ponoć ma zapewnić wsparcie dla pythona 3) czy C++. 
-    Gazebo jest rozbudowanym symulatorem oferującym symulację obiektów w trójwymiarze, dodatkowo umożliwia proste dołączanie pluginów jako biblioteki dynamiczne C++.
-    W ten właśnie sposób został zaimplementowany sterownik bazy mobilnej.
-    \item[8]
+    
+    \item[12]
     Mapa jest modelem świata stworzonym na podstawie danych z czujników i przechowywanym w pamięci robota. 
-    Można przyjąć, że początkowa pozycja robota jest w (0, 0) kartezjańskiego układu współrzędnych i chcąc dostać się do  dowolnego innego punktu będziemy korzystać z odometrii,
-    o której powiem więcej w następnym punkcie, jednak to podejście powoduje akumulację błędu lokalizacji.
-    Dlatego budowa mapy jest potrzebna, aby korzystając z punktów odniesienia,
-    których położenie względem początku układu współrzędnych jest znane, minimalizować ten błąd.
-    \item[9]
+    Można przyjąć, że początkowa pozycja robota jest w (0, 0) kartezjańskiego układu współrzędnych i chcąc dostać się do  dowolnego innego punktu będziemy korzystać z odometrii (zadanie nawigacji zliczeniowej), o której powiem więcej w następnym punkcie, jednak to podejście powoduje akumulację błędu lokalizacji, mimo że wspomnianej mapy nie wymaga, co sprawia, że jest względnie szybką formą znajdowania pozycji.
+    Implementacja budowy mapy jest potrzebna, aby korzystając z punktów odniesienia, których położenie względem początku układu współrzędnych jest znane, minimalizować ten błąd.
+    \item[13]
     Przy budowie mapy potrzebne jest początkowe założenie, że znana jest dokładna pozycja robota. 
-    Przykładowo przyjmuje się, że jest to pozycja (x:0, y:0, theta:0) w układzie odniesienia świata.
+    Przykładowo przyjmuje się, że jest to pozycja (x:0, y:0, theta:0) w układzie odniesienia mapy.
     Dzięki temu możliwe jest uzyskanie położenia punktów charakterystycznych otoczenia, które służą do stworzenia mapy. Ich położenie jednak jest już obarczone błędem pomiarowym.
     Istnieje wiele możliwych rozwiązań problemu budowania mapy, jednym przykładem jest zbiór punktów zebranych przez skaner laserowy, lub chmura w trzech wymiarach zebrana przez kamerę Kinect.
     Możliwe jest też wykorzystanie specjalnie oznaczonych punktów, które są identyfikowane przez robota i mają przypisaną zmierzoną pozycję, aby później ułatwić zadanie lokalizacji.
-    \item[10]
+    \item[15]
     Mapa zbudowana przy pomocy czujnika LiDAR pozwala na względnie szybkie tworzenie obrazów pomieszczeń o płaskim podłożu, lecz nie zawiera informacji co się znajduje powyżej lub poniżej.
-   Innym sposobem jest wykorzystanie chmury punktów generowanej przez kamerę Kinect. Pozwala na budowę trójwymiarowych obrazów pomieszczeń, pochłania to jednak więcej mocy obliczeniowej. 
-    Jeżeli mapa ma zostać wykorzystana tylko do celów lokalizacji, to budowa mapy przy wykorzystaniu skanera często w zupełności wystarczy, jednak w przypadku mojej pracy jest to zbyt mało.
-    \item[12]
-    Zwykła mapa zawiera jedynie informacje o tym, czy w danym miejscu znajduje się jakiś obiekt, podstawowym celem jest pomoc w lokalizacji.
-Mapa kosztów każdemu punktowi na mapie przypisuje pewną wartość, co jest potrzebne w algorytmach nawigacji do obrania optymalnej ścieżki. 
+   Innym sposobem jest wykorzystanie chmury punktów generowanej przez kamerę Kinect. Pozwala ona na budowę trójwymiarowych obrazów pomieszczeń, pochłania to jednak więcej mocy obliczeniowej. 
+    Jeżeli mapa ma zostać wykorzystana tylko do celów lokalizacji, to budowa mapy przy wykorzystaniu skanera LiDAR często w zupełności wystarczy, jednak w przypadku mojej pracy jest to zbyt mało.
+    \item[16]
+    Zwykła mapa zawiera jedynie informacje o tym, czy w danym miejscu znajduje się jakiś obiekt, podstawowym jej celem jest pomoc w lokalizacji.
+Mapa kosztów każdemu punktowi na mapie przypisuje pewną wartość, co jest potrzebne w algorytmach nawigacji do dobrania optymalnej ścieżki. 
 Przedstawię tu dwuwymiarowe mapy kosztów, gdyż takie właśnie wykorzystam do zaimplementowania modułu nawigacji. 
 Powszechnie niska wartość oznacza, że pozycja na mapie jest dostępna, wysoka oznacza przeszkodę, przykładowo ścianę. 
-Dodatkowo dzięki wartościom pomiędzy najniższą a najwyższą można dodawać miejsca, które chcemy aby robot unikał, chociażby pobliże ścian może powodować problemy z uderzaniem manipulatorów o przeszkody lub blokowanie systemów nawigacji, które mają źle zaimplementowany algorytm odblokowania robota z zakleszczeń.
-		\item[14]
-		Kolejnym rozwiązaniem jest wykorzystanie wielowarstwowych map dwuwymiarowych.
-    Pozwalają one na wykrywanie przeszkód na wielu poziomach, dodatkowo można każdej warstwie przypisać inną cechę, przykładowo jedna mapa kosztów może odnosić się do tego czy powierzchnia jest śliska, czy może w danym miejscu znajduje się blat stołu. 
-    \item[15]
-    Zanim przedstawię bliżej problem lokalizacji omówię koncept operatorów przekształcenia jednorodnego oraz drzewa transformacji.
-Operator przekształcenia jednorodnego jest macierzą przedstawiającą operację, którą należy wykonać aby przejść między dwoma punktami, które dane przekształcenie opisuje.
+Dodatkowo dzięki wartościom pomiędzy najniższą a najwyższą można dodawać miejsca, które chcemy, aby robot unikał, lecz nie traktował jak niebezpieczne przeszkody, chociażby pobliże ścian może powodować problemy z uderzaniem manipulatorów o nie, lub blokowanie systemów nawigacji, które mają źle zaimplementowany algorytm odblokowania robota z zakleszczeń.
+		\item[18]
+		Kolejnym przykładem implementacji map kosztów jest wykorzystanie wielowarstwowych map dwuwymiarowych.
+    Pozwalają one na wykrywanie przeszkód na wielu poziomach, lub można każdej warstwie przypisać inną cechę, przykładowo jedna mapa kosztów może odnosić się do tego, czy powierzchnia jest śliska, czy może w danym miejscu znajduje się przeszkoda, którą w ostateczności robot może przesunąć. 
+    \item[19]
+    Zanim przedstawię bliżej problem lokalizacji, omówię koncept macierzy przekształcenia jednorodnego oraz drzewa transformacji.
+Macierz przekształcenia jednorodnego może mieć kilka interpretacji, przykładowo przedstawia operację, którą należy wykonać, aby przejść między reprezentacjami punktu w dwóch układach odniesienia.
 W przypadku punktów w trzech wymiarach ma ona wymiary 4x4. Można wyróżnić w niej macierz obrotu 3x3 oraz wektor translacji 3x1.
+		Na dole widoczna jest macierz reprezentująca przejście z układu $1$ do $0$. 
+		Kolejną interpretacją może być położenie i orientacja układu $1$ w układzie $0$.
 
-		\item[16]
-	W robotyce pozycję danego elementu przechowuje się wykorzystując układ współrzędnych, znając jego położenie oraz orientację można stwierdzić w jakim stanie znajduje się element, do którego dany układ współrzędnych jest przypisany.
-W przypadku połączenia ze sobą dwóch elementów można ich relację przedstawić z pomocą parametrów Denavita-Hartenberga (obrót oraz przesunięcie względem osi x oraz z odpowiednich układów). 
-Korzystając z tych czterech parametrów i macierzy transformacji jednorodnej można w przypadku robota szeregowego w prosty sposób obliczać pozycje kolejnych stawów przez mnożenie przez kolejne macierze wygenerowane z odpowiednich parametrów D-H.
+		\item[20]
+	Pozycję danego elementu można przechowywać wykorzystując układ współrzędnych, znając jego położenie oraz orientację da się stwierdzić, w jakim stanie znajduje się element względem ustalonego układu.
+Korzystając z Macierzy przekształcenia jednorodnego można przechodzić kolejno między połączonymi szeregowo układami współrzędnych, które wszystkie razem opisują aktualny stan robota.
 W ten sposób powstaje drzewo transformacji. Ma ono swój początek w pierwszym wybranym układzie względem którego chcemy obliczyć pozycję elementu.
 W przypadku mojej pracy jest to układ świata.
-Drzewo transformacji składa się z układów współrzędnych jako węzłów oraz parametrów D-H opisujących ich relację. 
 Drzewo robota szeregowego może mieć tylko jeden korzeń, a każdy węzeł tylko jednego rodzica, za to wiele dzieci.
-		\item[17]
-	W przypadku lokalizacji poszukiwana jest pozycja układu współrzędnych pierwszego węzła opisującego robota w układzie świata. 
-Od niego potem odchodzą kolejne układy opisujące dalsze części robota, które jednak nie wnoszą żadnych użytecznych informacji do zadania lokalizacji.
+		\item[21]
+	W przypadku lokalizacji poszukiwana jest pozycja układu współrzędnych pierwszego węzła opisującego robota w układzie świata.
+Od niego odchodzą kolejne układy opisujące dalsze części robota, które jednak nie wnoszą żadnych użytecznych informacji do zadania lokalizacji.
 W systemach nawigacji częstym widokiem jest przedstawienie początku drzewa jako sekwencja świat-mapa-odometria w tej właśnie kolejności. 
 Świat to globalny początkowy układ, mapa to początkowy układ współrzędnych względem którego jest zbudowana mapa, natomiast odometria to układ początku obliczania odometrii robota.
 Znając przekształcenia świat-mapa, mapa-odometria i odometria-robot jesteśmy w stanie obliczyć położenie bazy mobilnej w układzie świata.
-\pagebreak
-		\item[18]
-    Tu przechodzimy do pierwszej metody lokalizacji którą omówię, odometrii.
+		\item[22]
+    Tu przechodzimy do pierwszej metody lokalizacji, którą omówię, odometrii.
 Jest to metoda nawigacji zliczeniowej polegająca na ustaleniu pozycji robota na podstawie jego oszacowanej prędkości, kierunku i czasu ruchu względem początkowego układu, o którym wspomniałem wcześniej.
 W przypadku wielu robotów mobilnych obliczenie przesunięcia w ten sposób jest względnie prostym zadaniem, jednak wnosi do obliczeń wiele błędów zarówno systematycznych (niedokładnie zmierzony/obliczony obwód koła) jak i losowych (poślizgi). 
-Stowosane są metody minimalizacji takich błędów, lecz nie da się ich pozbyć do końca, więc im dłużej dany robot będzie poruszał się po środowisku korzystając tylko i wyłącznie z odometrii, tym większy będzie błąd lokalizacji.
-		\item[19]
+Stosowane są metody minimalizacji takich błędów, lecz nie da się ich pozbyć do końca, więc im dłużej dany robot będzie poruszał się po środowisku korzystając tylko i wyłącznie z odometrii, tym większy będzie błąd lokalizacji.
+		\item[23]
 		Kolejna metoda lokalizacji wykorzystuje identyfikowalne punkty o znanym położeniu względem początkowego układu, czyli pewien rodzaj mapy.
-Wiedząc który punkt robot bierze pod uwagę podczas lokalizacji i znając pozycję tego punktu względem robota można obliczyć pozycję bazy względem początkowego układu współrzędnych.
+Wiedząc, który punkt robot bierze pod uwagę podczas lokalizacji i znając pozycję tego punktu względem robota, można obliczyć pozycję bazy względem początkowego układu współrzędnych.
 Ta metoda również generuje błędy lokalizacji, gdyż położenie punktów jest obarczone błędem, zarówno jak zmierzenie ich pozycji względem robota, lecz ten błąd nie będzie rósł tak jak w przypadku odometrii.
-		\item[20]
-	W przypadku lokalizacji z wykorzystaniem czujników LiDAR problem lokalizacji jest podobny do poprzedniego, lecz w tym przypadku nie ma informacji o tym który konkretnie punkt na mapie jest aktualnie rozpatrywany, należy go dopasować razem ze wszystkimi z ostatniego skanu.
+		\item[24]
+	W przypadku lokalizacji z wykorzystaniem czujników LiDAR problem lokalizacji jest podobny do poprzedniego, lecz w tym przypadku nie ma informacji o tym, który konkretnie punkt na mapie jest aktualnie rozpatrywany, należy go dopasować razem ze wszystkimi z ostatniego skanu.
 Algorytm ICP (iterative closed point) pozwala na dopasowanie aktualnego skanu z robota do stworzonej uprzednio mapy i zwraca najlepiej pasujące położenie i orientację w danej przestrzeni.
 Metoda ta pozwala na lokalizację w przestrzeni bez umieszczania specjalnych znaczników, które robot byłby w stanie rozpoznać, lecz kosztem dużego nakładu obliczeniowego i bez gwarancji zwrócenia poprawnej pozycji jeżeli chmura punktów z czujnika lub zapisana w mapie nie zostaną odpowiednio przetworzone \cite{icp_article}.
-%TODO wwstaw biblio
-%                    (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5949039/)
 Lokalizacja z użyciem znaczników lub algorytmu ICP zwraca zwykle mniejsze błędy lokalizacji niż odometria, lecz są przypadki gdzie odometria ma również swoje zastosowania. 
-W przypadku gdy pomieszczenie jest długim korytarzem lub innym pomieszczeniem gdzie algorytm nie jest w stanie znaleźć punktów szczególnych ostatnia metoda nie zwróci poprawnej pozycji.
-Gdy dodatkowo nie mamy w pomieszczeniu żadnych rozpoznawalnych znaczników, druga metoda również niewiele zdziała.
+W przypadku gdy pomieszczenie jest długim korytarzem lub innym pomieszczeniem gdzie algorytm nie jest w stanie znaleźć punktów szczególnych, algorytm ICP nie zwróci poprawnej pozycji.
+Gdy dodatkowo nie mamy w pomieszczeniu żadnych rozpoznawalnych znaczników, metoda lokalizacji znaczników również niewiele zdziała.
 W tym przypadku można wspomóc algorytm korzystając z odometrii, gdyż nie zależy ona od świata zewnętrznego, a jedynie stanu wewnętrznego robota.
-		\item[21]
-		Kolejnym krokiem jest połączenie dwóch powyższych działów, lokalizacji i budowania mapy i wykorzystanie ich jednocześnie. 
+		\item[25]
+		Kolejnym krokiem jest połączenie dwóch powyższych działów, lokalizacji i budowania mapy, i wykorzystanie ich jednocześnie. 
 Podczas tworzenia mapy środowiska praktycznie zawsze w celu zobrazowania jego całości niezbędne jest poruszenie robotem, a gdy ten się poruszy, trzeba wiedzieć gdzie znajdował się tworząc dany element mapy, aby dołączyć ją do całości w odpowiednim miejscu i z poprawną orientacją.
 SLAM (Simultaneous Localization and Mapping) jest rozwiązaniem tego problemu.
 Dzięki temu możliwe jest nawet tworzenie map z wykorzystaniem wielu robotów na raz.
-		\item[22]
+		\item[26]
 		Przechodząc do ostatniego dużego punktu tej części mojej prezentacji warto wspomnieć, że szukanie optymalnej ścieżki ma zastosowania również poza robotyką, przykładowo w grach komputerowych. 
-Jeden z artykułów z którego korzystam w mojej pracy nosi tytuł  'A Comprehensive Study on Pathfinding Techniques for Robotics and Video Games'.
-		\item[23]
+Jeden z artykułów, z którego korzystam w mojej pracy, nosi tytuł  'A Comprehensive Study on Pathfinding Techniques for Robotics and Video Games'.
+W systemie ROS jest gotowych kilka algorytmów przystosowanych do sterowania bazą mobilną, które nie tylko wyznaczają optymalną ścieżkę, ale też zwracają pożądaną w danym momencie prędkość bazy mobilnej.
+Wypisane tu algorytmy (DWA, EBand oraz TEB) mają wykorzystywać wielokierunkowość bazy jezdnej robota Velma.
+		\item[27]
 		Problem planowania ścieżki można rozdzielić na dwie sekcje. 
 Pierwszą z nich jest sposób reprezentacji mapy w celu wykonania algorytmu poszukiwania bez zbędnych nakładów obliczeniowych.
 Szkieletyzacja tworzy graf topologiczny zobrazowanego środowiska, po którym robot się przemieszcza, dekompozycja komórkowa dzieli mapę na komórki zawierające przestrzeń zdatną do poruszania. Mogą to być przykładowo wielokąty wypukłe, często wykorzystywane są kwadraty i sześciokąty.
-		\item[24]
-		Po otrzymaniu pożądanej reprezentacji środowiska należy dobrać odpowiedni algorymt wyszukiwania ścieżki.
+		\item[28]
+		Po otrzymaniu pożądanej reprezentacji środowiska należy dobrać odpowiedni algorytm wyszukiwania ścieżki.
 Powszechne w wykorzystaniu są algorytm A*, genetyczny, wykorzystanie sztucznych pól potencjału, który generuje wirtualne siły przyciągające robota do celu i odpychające od przeszkód.
-W przypadku dekompozycji mapy reprezentacja sześciokątna znacznie zwiększyła wydajnośc niektórych algorytmów, 
-		\item[25]
+W przypadku dekompozycji mapy reprezentacja sześciokątna znacznie zwiększyła wydajność niektórych algorytmów, 
+		\item[29]
 		 W celu poprawnego wygenerowania ścieżki należy zdefiniować dokładnie skąd dokąd ścieżka ma prowadzić.
 Punkt docelowy jest raczej oczywisty, użytkownik algorytmu sam definiuje końcowy punkt ścieżki, natomiast za punkt początkowy zwykle uznaje się aktualną pozycję bazowego układu współrzędnych robota, o którym była mowa w punkcie o lokalizacji. 
 Po wyznaczeniu ścieżki może się jednak okazać, że na zakręcie jest ona zbyt blisko ściany i robot próbując ją wykonać uderzy w nią.
 W celu uniknięcia tej katastrofy wykorzystuje się wspomniane wcześniej mapy kosztów, zwiększając wartości dookoła przeszkód aby ścieżka była generowana dalej od nich, oraz ślad robota (ang. footprint) będący rzutem pionowym postaci robota na podłoże, dzięki któremu wyznaczanie ścieżki w pobliżu przeszkód będzie mniej prawdopodobne.
-		\item[26]
+		\item[30]
 		Po omówieniu głównych elementów wchodzących w skład problemu nawigacji możemy przejść do sposobu jej implementacji za pomocą systemu ROS.
 ROS Navigation Stack przyjmuje popularne podejście podziału algorytmu na dwie części: globalną i lokalną.
-Globalna ścieżka jest tworzona na podstawie mapy całego środowiska załadowanej do pamięci, ponieważ bardziej skomplikowane algorytmy mogłyby zająć zbyt wiele czasu, w tym przypadku wykorzystuje się proste algorytmy, które jednak często nie biorą pod uwagę aktualnegp stanu środowiska zewnętrznego.
+Globalna ścieżka jest tworzona na podstawie mapy całego środowiska załadowanej do pamięci, ponieważ bardziej skomplikowane algorytmy mogłyby zająć zbyt wiele czasu, w tym przypadku wykorzystuje się proste algorytmy, które jednak często nie biorą pod uwagę aktualnego stanu środowiska zewnętrznego.
 Reakcją na to jest planer lokalny, który dzięki przetwarzaniu jedynie przestrzeni w sąsiedztwie robota jest w stanie wykorzystać bardziej zaawansowane algorytmy do optymalizacji ścieżki i reakcji na bodźce zewnętrzne. 
+Ma on też za zadanie wyznaczanie pożądanych prędkości bazy mobilnej.
 Dodatkowo do systemu nawigacji powinien zostać zaimplementowany system odratowania (ang. recovery). 
-Ma on pozwolić bazie mobilnej na wyrwanie się z sytuacji w której plan lokalny, który steruje ruchami robota, nie jest w stanie znaleźć wyjścia z sytuacji.
-Takim zachowaniem odratowania może być obrót w miejscu dopóki ruch nie stanie się możliwy, czy cofnięcie i przesunięcie losowo w innym kierunku (z uwzględnieniem przeszkód)
-		\item[29]
-		Na początku pracy z tematem musiałem sformułować problem inżynierski, który przedstawię następująco:
+Ma on pozwolić bazie mobilnej na wyrwanie się z sytuacji, w której plan lokalny, który steruje ruchami robota, nie jest w stanie znaleźć wyjścia lub oscyluje.
+Takim zachowaniem odratowania może być obrót w miejscu dopóki ruch nie stanie się możliwy, czy cofnięcie i przesunięcie losowo w innym kierunku (z uwzględnieniem przeszkód).
+		\item[33]
+		Na początku pracy z tematem musiałem sformułować problem inżynierski, który zdefiniowałem następująco:
 moim zadaniem jest implementacja mechanizmu nawigacji do symulacji mobilnej bazy wielokierunkowej spełniająca następujące wymagania:
 		\begin{itemize}
 			\item
@@ -157,28 +169,30 @@ moim zadaniem jest implementacja mechanizmu nawigacji do symulacji mobilnej bazy
 			\item
 			zapewnienie mechanizmu stworzenia i wykonania ścieżki między dowolnymi dwoma punktami stworzonego środowiska i pokonanie jej w sposób bezpieczny dla robota
 		\end{itemize}
- 		\item[30]
- 		Zadanie wykonuję przy wykorzystaniu opisanych już: symulatora Gazebo i systemu ROS, pisząc kod w językach Python i C++
- 		\item[31]
- 		Gdy zacząłem prace nad implementacją lokalizacji okazało się, że drzewo transformacji jest zbudowane niepoprawnie. 
-Pierwszym punktem było więc naprawienie go tak, aby miało konfigurację omówioną już wcześniej w trakcie prezentacji, co pozwoliło uniknąć tworzenia nieporządanych zapętleń w drzewie.
+ 		\item[34]
+ 		Gdy zacząłem prace nad implementacją lokalizacji, okazało się, że drzewo transformacji jest zbudowane niepoprawnie. 
+Pierwszym punktem było więc naprawienie go tak, aby miało konfigurację omówioną już wcześniej w trakcie prezentacji, co pozwoliło uniknąć tworzenia niepożądanych zapętleń w drzewie.
 Dzięki temu możliwa stała się lokalizacja, zaczęła działać odometria udostępniana przez sterownik bazy.
 
 Dodatkowo zaimplementowałem budowę mapy 2D z pomocą dwóch czujników laserowych obecnych na bazie mobilnej oraz mapy 3D z pomocą kamery Kinect.
 
 Oprócz tego dodany został algorytm lokalizacji z pomocą czujników laserowych.
-		\item[32]
+
+Działa również algorytm  globalnej ścieżki wykorzystujący algorytm Dijkstry oraz algorytm planowania lokalnego wykorzystujący DWA oraz TEB.
+		\item[35]
 		Jak wspomniałem na początku prezentacji, w przypadku robota Velmy na bazie mobilnej ważne jest wykrycie przeszkód znajdujących się powyżej poziomu podestu.
 Dlatego planuję wykorzystać zarówno mapę z czujników laserowych jak i kamery Kinect do stworzenia wielowarstwowej mapy kosztów. 
-Zbadam implementację dwóch warstw o różnych parametrach oraz jednej stworzonej przez połączenie wyżej wspomnianych.
-		\item[33]
-		Następnie sprawdzę obecny system planowania ścieżki i poprawię jego wariant lokalny, który w tym momencie traktuje bazę robota jako różnicową, nie wykorzystując jego możliwości w poruszaniu się w dowolnym kierunku.
-		\item[34]
+		\item[36]
+		Do tej pory udało się dostosować dwa warianty algorytmu planowania lokalnego, DWA oraz TEB.
+		Do dostrojenia pozostał algorytm EBand, który traktuje bazę mobilną robota jako różnicową.
+		
+		
+		\item[37]
 		Na koniec przeprowadzę testy z różnymi metodami lokalizacji, budowy mapy i planowania.
 W przypadku budowy mapy będę brał pod uwagę czas, poziom skomplikowania procesu jej budowy oraz ilość informacji którą przekazuje.
-W przypadku lokalizacji będę brał pod uwagę błąd względem idealnej pozycji uzyskanej z symulatora, sprawdzę odporność na słabości zarówno odometrii jak i lokalizacji z pomocą algorytmu ICP (długi korytarz, labirynt bez punktów szczególnych).
-W przypadku planowania ścieżki porównam obecny silnik jej generowania z innymi dostępnymi, głównymi czynnikami oceny będzie czas wykonania ścieżki, reakcja na przeszkody dynamiczne, wpadanie w ślepe zaułki oraz wykorzystanie wszystkich stopni swobody bazy mobilnej.
-	\item[36]
+W przypadku lokalizacji będę brał pod uwagę błąd względem idealnej pozycji uzyskanej z symulatora, sprawdzę odporność na słabości zarówno odometrii, jak i lokalizacji z pomocą algorytmu ICP (długi korytarz, labirynt bez punktów szczególnych).
+W przypadku planowania ścieżki porównam obecny silnik jej generowania z innymi dostępnymi, głównymi czynnikami oceny będzie czas wykonania ścieżki, reakcja na przeszkody dynamiczne, wpadanie w ślepe zaułki oraz gładkość wykonanej ścieżki.
+	\item[38]
 	Dziękuję wszystkim za uwagę.
 
 \printbibliography
